@@ -90,7 +90,7 @@ def list_images(config):
         for disk in sds:
             click.echo('Device {device} mounted on {mountpoint}'.format(**disk._asdict()))
     else:
-        click.echo('No mountes SD cards found. Insert a SD card and format it to vfat.')
+        click.echo('No mounted SD cards found. Insert a SD card and format it to vfat.')
 
 
 @cli.command('bake')

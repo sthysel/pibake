@@ -3,6 +3,7 @@ import psutil
 import zipfile
 import click
 
+
 def get_mounted_candidates():
     """
     Returns list of mounted volumes that are likely to be sd-cards
