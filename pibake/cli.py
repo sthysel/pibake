@@ -1,47 +1,18 @@
 import os
 import sys
-from pprint import pformat
 
 import click
 import requests
 
+from pibake.utils import (
+    get_filename_from_response,
+    remove_existing_file,
+    get_filesize,
+    get_images,
+    get_image_file
+)
+from . import disks
 from . import settings
-
-
-def get_filename_from_response(response, verbose=0):
-    """
-    :param response: The response object from requests
-    :param verbose: Chattiness 
-    :return: 
-    """
-    if verbose >= 2:
-        click.echo(pformat(dict(**response.headers)))
-        for r in response.history:
-            click.echo(pformat(dict(**r.headers)))
-
-    try:
-        location = response.history[0].headers.get('Location')
-        filename = location.split('/')[-1]
-    except:
-        raise ValueError('Could not find a filename')
-    else:
-        return filename
-
-
-def remove_existing_file(cache_file_name, overwrite):
-    if os.path.isfile(cache_file_name):
-        if overwrite:
-            os.remove(cache_file_name)
-        else:
-            click.secho('{} already exists. Use the --override option to re-download'.format(cache_file_name), fg='red')
-            sys.exit()
-
-
-def get_filesize(response):
-    try:
-        return int(response.headers.get('Content-Length'))
-    except ValueError:
-        return -1
 
 
 class CookConfig:
@@ -104,7 +75,40 @@ def fetch(config, full, cache_path, overwrite):
 @cook_config
 def list_images(config):
     """ List all images available in local cache """
+    for image in get_images(config):
+        click.echo(image)
 
-    for file in os.listdir(config.cache_path):
-        if file.endswith('.zip'):
-            click.echo(file.split('.')[0])
+
+@cli.command('disks')
+@cook_config
+def list_images(config):
+    """ List mounted SD card(s) that are good candidates to be burned """
+
+    sds = disks.get_mounted_candidates()
+    if sds:
+        click.echo('{} potential disk(s) are available:'.format(len(sds)))
+        for disk in sds:
+            click.echo('Device {device} mounted on {mountpoint}'.format(**disk._asdict()))
+    else:
+        click.echo('No mountes SD cards found. Insert a SD card and format it to vfat.')
+
+
+@cli.command('bake')
+@click.argument('image')
+@click.argument('mountpoint')
+@cook_config
+def bake_image(config, image, mountpoint):
+    """
+    Bake selected image to disk mounted at mountpoint
+    """
+    valid_images = get_images(config)
+    if image not in valid_images:
+        click.echo('Please pick a valid image, current choices are: {}'.format(', '.join(valid_images)))
+        sys.exit()
+
+    valid_mounts = [disk.mountpoint for disk in disks.get_mounted_candidates()]
+    if mountpoint not in valid_mounts:
+        click.echo('Please pick a valid mountpoint, one of {}'.format(', '.join(valid_mounts)))
+        sys.exit()
+
+    disks.unzip_to_mount(get_image_file(image), mountpoint)
