@@ -1,9 +1,13 @@
 # Raspberry pi image baker
 
-This tool fetches the latest NOOBS image from source and burns it to a nominated sd-card.
+This tool fetches the latest NOOBS and Raspian full and lite image from source
+and burns it to a nominated sd-card.
 
 All downloads are kept in local cache directory, `.pibake` by default.
 New images have new names so old versions are kept until deleted.
+
+This means the images are always at hand and you can update your local copies
+when and if required.
 
 
 # Usage
@@ -11,6 +15,7 @@ New images have new names so old versions are kept until deleted.
 To get help
 
 ``` bash
+$ pibake --help
 Usage: pibake [OPTIONS] COMMAND [ARGS]...
 
   Fetch, manage and burn Raspberry PI images.
@@ -32,7 +37,7 @@ Commands:
 Fetching images
 
 ```
-pibake fetch --help
+$ pibake fetch --help
 Usage: pibake fetch [OPTIONS]
 
   Fetch images
@@ -50,7 +55,7 @@ Options:
 Fetch the latest lite NOOBS image
 
 ``` bash
-$ pibake fetch -o
+$ pibake fetch NOOBS
 Contacting server...
 Fetching /home/thys/.pibake/NOOBS_lite_v2_3.zip
   [####################################]  100%
@@ -118,8 +123,15 @@ Contacting server...
 
 # Install
 
+pibake is in pypi
 
-## Install from source into virtualen
+
+```
+$ pip install pibake
+```
+
+
+## Install from source into virtualenv
 
 ```
 $ workon pibake
