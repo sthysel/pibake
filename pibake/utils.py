@@ -3,6 +3,15 @@ import sys
 from pprint import pformat
 
 import click
+from . import settings
+
+
+def get_image_source_list():
+    return sorted(settings.IMAGE_SOURCE_LOOKUP.keys())
+
+
+def get_default_image_source():
+    return get_image_source_list()[0]
 
 
 def get_filename_from_response(response, verbose=0):

@@ -9,7 +9,9 @@ from pibake.utils import (
     remove_existing_file,
     get_filesize,
     get_images,
-    get_image_file
+    get_image_file,
+    get_image_source_list,
+    get_default_image_source
 )
 from . import disks
 from . import settings
@@ -40,22 +42,20 @@ def cli(config, cache_path, verbose):
 
 @cli.command('fetch')
 @click.option('-o', '--overwrite/--no-overwrite', default=False, help='Overwrite existing file')
-@click.option('-f', '--full/--lite', default=False, help='Download NOOBS Full or Lite')
+@click.option('-i', '--image',
+              type=click.Choice(get_image_source_list()),
+              default=get_default_image_source(),
+              help='Download NOOBS Full or Lite')
 @cook_config
-def fetch(config, full, overwrite):
+def fetch(config, image, overwrite):
     """
     Fetch images 
     """
 
     os.makedirs(config.cache_path, exist_ok=True)
 
-    if full:
-        url = settings.NOOBS_LATEST_URL
-    else:
-        url = settings.NOOBS_LITE_LATEST_URL
-
     click.echo('Contacting server...')
-    response = requests.get(url, stream=True)
+    response = requests.get(settings.IMAGE_SOURCE_LOOKUP[image], stream=True)
 
     fname = get_filename_from_response(response, config.verbose)
     file_size = get_filesize(response)

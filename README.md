@@ -28,6 +28,25 @@ Commands:
 
 ```
 
+
+Fetching images
+
+```
+pibake fetch --help
+Usage: pibake fetch [OPTIONS]
+
+  Fetch images
+
+Options:
+  -o, --overwrite / --no-overwrite
+                                  Overwrite existing file
+  -i, --image [NOOBS|NOOBS_LITE|RASPIAN|RASPIAN_LITE]
+                                  Download NOOBS Full or Lite
+  --help                          Show this message and exit.
+
+```
+
+
 Fetch the latest lite NOOBS image
 
 ``` bash
