@@ -54,26 +54,28 @@ cook_config = click.make_pass_decorator(CookConfig, ensure=True)
 
 @click.group()
 @click.option('-v', '--verbose', default=0, count=True, help='Level of verbosity of logs')
-@cook_config
-def cli(config, verbose):
-    """
-    Fetch, manage and burn Raspberry PI images.
-    """
-    config.verbose = verbose
-
-
-@cli.command('fetch')
-@click.option('-o', '--overwrite/--no-overwrite', default=False, help='Overwrite existing file')
 @click.option('-c', '--cache-path',
               default=settings.CACHE,
               type=click.Path(),
               help='Image cache path, Default: {}'.format(settings.CACHE))
+@cook_config
+def cli(config, cache_path, verbose):
+    """
+    Fetch, manage and burn Raspberry PI images.
+    """
+    config.verbose = verbose
+    config.cache_path = cache_path
+
+
+@cli.command('fetch')
+@click.option('-o', '--overwrite/--no-overwrite', default=False, help='Overwrite existing file')
 @click.option('-f', '--full/--lite', default=False, help='Download NOOBS Full or Lite')
 @cook_config
 def fetch(config, full, cache_path, overwrite):
     """
     Fetch images 
     """
+
     os.makedirs(cache_path, exist_ok=True)
 
     if full:
@@ -96,3 +98,13 @@ def fetch(config, full, cache_path, overwrite):
                 for chunk in response.iter_content(chunk_size=1024):
                     f.write(chunk)
                     bar.update(len(chunk))
+
+
+@cli.command('list')
+@cook_config
+def list_images(config):
+    """ List all images available in local cache """
+
+    for file in os.listdir(config.cache_path):
+        if file.endswith('.zip'):
+            click.echo(file.split('.')[0])
