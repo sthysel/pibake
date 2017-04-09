@@ -10,7 +10,7 @@ New images have new names so old versions are kept until deleted.
 
 To get help
 
-```
+``` bash
 pibake --help
 Usage: pibake [OPTIONS] COMMAND [ARGS]...
 
@@ -26,7 +26,7 @@ Commands:
 
 Fetch the lates lite NOOBS image
 
-```
+``` bash
 $ pibake fetch -o
 Contacting server...
 Fetching /home/thys/.pibake/NOOBS_lite_v2_3.zip
@@ -36,9 +36,51 @@ Fetching /home/thys/.pibake/NOOBS_lite_v2_3.zip
 
 Fetch the latest full NOOBS image
 
-```
+``` bash
 $ pibake fetch --full
 Contacting server...
 Fetching /home/thys/.pibake/NOOBS_v2_3_0.zip
   [####--------------------------------]   13%  0d 00:17:29
+```
+
+
+To see where the images are retrieved from use the `-vv` option
+
+
+``` bash
+pibake -vv fetch
+Contacting server...
+{'Accept-Ranges': 'bytes',
+ 'Age': '2714',
+ 'Content-Length': '33492713',
+ 'Content-Type': 'application/zip',
+ 'Date': 'Sun, 09 Apr 2017 09:31:57 GMT',
+ 'ETag': '"140006-1ff0ee9-549d637969e00"',
+ 'Last-Modified': 'Fri, 03 Mar 2017 16:41:28 GMT',
+ 'Server': 'Apache/2.2.22 (Debian)',
+ 'Via': '1.1 d.cdn.velocix.com:80 (pcd/42.0.189164.189164 (2016-03-03 08:58:06 '
+        'UTC))',
+ 'X-Cache': 'HIT from d.cdn.velocix.com'}
+{'Connection': 'close',
+ 'Content-Encoding': 'gzip',
+ 'Content-Length': '278',
+ 'Content-Type': 'text/html; charset=iso-8859-1',
+ 'Date': 'Sun, 09 Apr 2017 10:17:08 GMT',
+ 'Location': 'https://downloads.raspberrypi.org/NOOBS_lite/images/NOOBS_lite-2017-03-03/NOOBS_lite_v2_3.zip',
+ 'Server': 'Apache/2.2.22 (Debian)',
+ 'Vary': 'Accept-Encoding'}
+{'Connection': 'close',
+ 'Content-Encoding': 'gzip',
+ 'Content-Length': '284',
+ 'Content-Type': 'text/html; charset=iso-8859-1',
+ 'Date': 'Sun, 09 Apr 2017 10:17:09 GMT',
+ 'Location': 'http://director.downloads.raspberrypi.org/NOOBS_lite/images/NOOBS_lite-2017-03-03/NOOBS_lite_v2_3.zip',
+ 'Server': 'Apache/2.2.22 (Debian)',
+ 'Vary': 'Accept-Encoding'}
+{'Connection': 'close',
+ 'Content-Length': '0',
+ 'Content-Type': 'text/x-python',
+ 'Date': 'Sun, 09 Apr 2017 10:17:10 GMT',
+ 'Location': 'http://vx2-downloads.raspberrypi.org/NOOBS_lite/images/NOOBS_lite-2017-03-03/NOOBS_lite_v2_3.zip',
+ 'Server': 'Apache/2.2.22 (Debian)'}
 ```
