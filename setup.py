@@ -12,6 +12,7 @@ setup(
     keywords='Raspberry PI Downloader',
     long_description=long_description,
     url='https://github.com/sthysel/pibake',
+    download_url='https://github.com/sthysel/pibake/archive/0.1.tar.gz',
     license="GPLv2",
     description='Fetches and Manages Raspberry PI Images',
     packages=find_packages(),
@@ -19,6 +20,7 @@ setup(
     install_requires=[
         'click',
         'requests',
+        'psutil',
     ],
     entry_points={
         'console_scripts': [
