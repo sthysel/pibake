@@ -11,17 +11,19 @@ New images have new names so old versions are kept until deleted.
 To get help
 
 ``` bash
-pibake --help
 Usage: pibake [OPTIONS] COMMAND [ARGS]...
 
   Fetch, manage and burn Raspberry PI images.
 
 Options:
-  -v, --verbose  Level of verbosity of logs
-  --help         Show this message and exit.
+  -v, --verbose          Level of verbosity of logs
+  -c, --cache-path PATH  Image cache path, Default: /home/thys/.pibake
+  --help                 Show this message and exit.
 
 Commands:
   fetch  Fetch images
+  list   List all images available in local cache
+
 ```
 
 Fetch the lates lite NOOBS image
