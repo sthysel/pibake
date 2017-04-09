@@ -1,9 +1,9 @@
 import os
 import sys
+from pprint import pformat
 
 import click
 import requests
-from pprint import pformat
 
 from . import settings
 
@@ -37,6 +37,13 @@ def remove_existing_file(cache_file_name, overwrite):
             sys.exit()
 
 
+def get_filesize(response):
+    try:
+        return int(response.headers.get('Content-Length'))
+    except ValueError:
+        return -1
+
+
 class CookConfig:
     def __init__(self):
         pass
@@ -56,12 +63,12 @@ def cli(config, verbose):
 
 
 @cli.command('fetch')
-@click.option('-o', '--overwrite', default=False, help='Overwrite existing file')
+@click.option('-o', '--overwrite/--no-overwrite', default=False, help='Overwrite existing file')
 @click.option('-c', '--cache-path',
               default=settings.CACHE,
               type=click.Path(),
               help='Image cache path, Default: {}'.format(settings.CACHE))
-@click.option('-f', '--full/--lite', help='Download NOOBS Full or lite')
+@click.option('-f', '--full/--lite', default=False, help='Download NOOBS Full or Lite')
 @cook_config
 def fetch(config, full, cache_path, overwrite):
     """
@@ -74,15 +81,18 @@ def fetch(config, full, cache_path, overwrite):
     else:
         url = settings.NOOBS_LITE_LATEST_URL
 
+    click.echo('Contacting server...')
     response = requests.get(url, stream=True)
 
     fname = get_filename_from_response(response, config.verbose)
+    file_size = get_filesize(response)
     cache_file_name = os.path.join(cache_path, fname)
     remove_existing_file(cache_file_name, overwrite)
 
     click.echo('Fetching {}'.format(cache_file_name))
     if response.status_code == 200:
         with open(cache_file_name, 'wb') as f:
-            with click.progressbar(response.iter_content(chunk_size=1024)) as bar:
-                for chunk in bar:
+            with click.progressbar(length=file_size) as bar:
+                for chunk in response.iter_content(chunk_size=1024):
                     f.write(chunk)
+                    bar.update(len(chunk))
