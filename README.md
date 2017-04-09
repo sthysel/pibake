@@ -11,7 +11,7 @@ New images have new names so old versions are kept until deleted.
 To get help
 
 ``` bash
-  Usage: pibake [OPTIONS] COMMAND [ARGS]...
+Usage: pibake [OPTIONS] COMMAND [ARGS]...
 
   Fetch, manage and burn Raspberry PI images.
 
