@@ -1,4 +1,4 @@
-# pibake raspberry pi baker
+# Raspberry pi image baker
 
 This tool fetches the latest NOOBS image from source and burns it to a nominated sd-card.
 
@@ -11,7 +11,7 @@ New images have new names so old versions are kept until deleted.
 To get help
 
 ``` bash
-Usage: pibake [OPTIONS] COMMAND [ARGS]...
+  Usage: pibake [OPTIONS] COMMAND [ARGS]...
 
   Fetch, manage and burn Raspberry PI images.
 
@@ -21,12 +21,14 @@ Options:
   --help                 Show this message and exit.
 
 Commands:
+  bake   Bake selected image to disk mounted at...
+  disks  List mounted SD card(s) that are good...
   fetch  Fetch images
   list   List all images available in local cache
 
 ```
 
-Fetch the lates lite NOOBS image
+Fetch the latest lite NOOBS image
 
 ``` bash
 $ pibake fetch -o
@@ -43,6 +45,14 @@ $ pibake fetch --full
 Contacting server...
 Fetching /home/thys/.pibake/NOOBS_v2_3_0.zip
   [####--------------------------------]   13%  0d 00:17:29
+```
+
+View potential SD cards to bake a image on
+
+```
+$ pibake disks
+1 potential disk(s) are available:
+Device /dev/sdb1 mounted on /run/media/thys/A881-FFA5
 ```
 
 
