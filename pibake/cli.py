@@ -42,12 +42,12 @@ def cli(config, cache_path, verbose):
 @click.option('-o', '--overwrite/--no-overwrite', default=False, help='Overwrite existing file')
 @click.option('-f', '--full/--lite', default=False, help='Download NOOBS Full or Lite')
 @cook_config
-def fetch(config, full, cache_path, overwrite):
+def fetch(config, full, overwrite):
     """
     Fetch images 
     """
 
-    os.makedirs(cache_path, exist_ok=True)
+    os.makedirs(config.cache_path, exist_ok=True)
 
     if full:
         url = settings.NOOBS_LATEST_URL
@@ -59,7 +59,7 @@ def fetch(config, full, cache_path, overwrite):
 
     fname = get_filename_from_response(response, config.verbose)
     file_size = get_filesize(response)
-    cache_file_name = os.path.join(cache_path, fname)
+    cache_file_name = os.path.join(config.cache_path, fname)
     remove_existing_file(cache_file_name, overwrite)
 
     click.echo('Fetching {}'.format(cache_file_name))
