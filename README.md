@@ -84,3 +84,24 @@ Contacting server...
  'Location': 'http://vx2-downloads.raspberrypi.org/NOOBS_lite/images/NOOBS_lite-2017-03-03/NOOBS_lite_v2_3.zip',
  'Server': 'Apache/2.2.22 (Debian)'}
 ```
+
+# Install
+
+
+## Install from source into virtualen
+
+```
+$ workon pibake
+$ pip install pibake
+```
+
+
+## Intall from source to local user in .local/
+
+For this to be most usefull have ${HOME}/.local/bin/ in $PATH
+
+``` bash
+$ pip install -r requirements.txt
+$ pip install --user .
+```
+
