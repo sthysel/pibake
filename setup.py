@@ -27,5 +27,15 @@ setup(
         'console_scripts': [
             'pibake=pibake.cli:cli',
         ]
-    }
+    },
+    classifiers=[
+        'Programming Language :: Python :: 3',
+        'Intended Audience :: Education',
+        'Intended Audience :: End Users/Desktop',
+        'Intended Audience :: Science/Research',
+        'Operating System :: Unix',
+        'Topic :: Education',
+        'Topic :: Utilities'
+    ]
+
 )
