@@ -1,4 +1,4 @@
-import psutil
+from psutil import disk_partitions
 
 import zipfile
 import click
@@ -10,7 +10,7 @@ def get_mounted_candidates():
     :return: list of sdiskpart named tuples
     """
     good = []
-    for disk in psutil.disk_partitions():
+    for disk in disk_partitions():
         # filter out all /dev/sda* volumes
         if disk.device.find('/dev/sda') != -1:
             continue

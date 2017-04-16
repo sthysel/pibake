@@ -1,9 +1,14 @@
 # Raspberry pi image baker
 
-This tool fetches the latest NOOBS image from source and burns it to a nominated sd-card.
+This tool fetches the latest Raspberry PI images from the official sources and keeps is in a local cache.
+You can then burn the image to SD card from the cached copy.
 
-All downloads are kept in local cache directory, `.pibake` by default.
-New images have new names so old versions are kept until deleted.
+Using the tool allows you to script PI installs using the latest images and prevents unfortunate mishaps
+when writing it to the SD card.
+
+All downloads are kept in local XDG specified cache directory, `~/.cache/pibake` by default.
+
+New images have new names so old versions are kept until manually deleted from the cache.
 
 
 # Usage

@@ -1,4 +1,7 @@
 import os
+from xdg.BaseDirectory import xdg_cache_home
+
+NAME = 'pibake'
 
 IMAGE_SOURCE_LOOKUP = {
     'NOOBS': os.getenv('PIBAKE_NOOBS_LATEST_URL', 'https://downloads.raspberrypi.org/NOOBS_latest'),
@@ -8,4 +11,4 @@ IMAGE_SOURCE_LOOKUP = {
 }
 
 # where to store the downloaded images
-CACHE = os.getenv('PIBAKE_CACHE', os.path.join(os.path.expanduser('~'), '.pibake'))
+CACHE = os.getenv('PIBAKE_CACHE', os.path.join(xdg_cache_home, NAME))
