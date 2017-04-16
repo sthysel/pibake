@@ -1,7 +1,7 @@
-from psutil import disk_partitions
-
 import zipfile
+
 import click
+from psutil import disk_partitions
 
 
 def get_mounted_candidates():

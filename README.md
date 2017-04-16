@@ -1,6 +1,6 @@
 # Raspberry pi image baker
 
-This tool fetches the latest Raspberry PI images from the official sources and keeps is in a local cache.
+This tool fetches the latest Raspberry PI images from the official sources and keeps it in a local cache.
 You can then burn the image to SD card from the cached copy.
 
 Using the tool allows you to script PI installs using the latest images and prevents unfortunate mishaps
@@ -26,7 +26,7 @@ Usage: pibake [OPTIONS] COMMAND [ARGS]...
 
 Options:
   -v, --verbose          Level of verbosity of logs
-  -c, --cache-path PATH  Image cache path, Default: /home/thys/.pibake
+  -c, --cache-path PATH  Image cache path, Default: /home/thys/.cache/pibake
   --help                 Show this message and exit.
 
 Commands:
@@ -75,7 +75,9 @@ Fetching /home/thys/.pibake/NOOBS_v2_3_0.zip
   [####--------------------------------]   13%  0d 00:17:29
 ```
 
-View potential SD cards to bake a image on
+View potential SD cards to bake a image on.
+Most distributions will automount a disk when inserted. Applications like
+nautilus will also mount all available disks.
 
 ```
 $ pibake disks
@@ -83,6 +85,15 @@ $ pibake disks
 Device /dev/sdb1 mounted on /run/media/thys/A881-FFA5
 ```
 
+To list all images available locally
+
+```
+$ pibake list
+2017-03-02-raspbian-jessie
+NOOBS_lite_v2_3
+NOOBS_v2_3_0
+NOOBS_v2_4_0
+```
 
 To see where the images are retrieved from use the `-vv` option
 
@@ -143,9 +154,9 @@ $ pip install pibake
 ```
 
 
-## Intall from source to local user in .local/
+## Install from source to local user in .local/
 
-For this to be most usefull have ${HOME}/.local/bin/ in $PATH
+For this to be most useful have ${HOME}/.local/bin/ in $PATH
 
 ``` bash
 $ pip install -r requirements.txt

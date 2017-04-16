@@ -1,7 +1,8 @@
 from setuptools import setup, find_packages
 
 long_description = '''
-Fetches and stores Raspberry PI Images to local cache.
+pibake fetches and stores Raspberry PI Images to local cache, from
+where you can burn it to a mounted SD card.
 '''
 
 setup(
