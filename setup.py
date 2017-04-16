@@ -9,7 +9,7 @@ setup(
     author='Thys Meintjes',
     author_email='sthysel@gmail.com',
     name='pibake',
-    version='0.1.0',
+    version='0.2.0',
     keywords='Raspberry PI Downloader',
     long_description=long_description,
     url='https://github.com/sthysel/pibake',
