@@ -163,3 +163,11 @@ $ pip install -r requirements.txt
 $ pip install --user .
 ```
 
+# Dev
+
+```
+$ bumpversion --current-version=0.2.2 patch
+$ python setup.py sdist bdist_wheel
+$ twine upload -r test -s dist/*
+$ twine upload dist/*
+```
