@@ -13,10 +13,10 @@ setup(
     keywords='Raspberry PI Downloader',
     long_description=long_description,
     url='https://github.com/sthysel/pibake',
-    download_url='https://github.com/sthysel/pibake/archive/0.1.tar.gz',
+    download_url='https://github.com/sthysel/pibake/archive/v0.2.1.tar.gz',
     license="GPLv2",
     description='Fetches and Manages Raspberry PI Images',
-    packages=find_packages(),
+    packages=find_packages(exclude=['tests*']),
     include_package_data=True,
     install_requires=[
         'click',
@@ -29,6 +29,7 @@ setup(
         ]
     },
     classifiers=[
+        'Development Status :: 5 - Production/Stable',
         'Programming Language :: Python :: 3',
         'Intended Audience :: Education',
         'Intended Audience :: End Users/Desktop',
