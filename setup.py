@@ -11,7 +11,7 @@ setup(
     name='pibake',
     version='0.2.4',
     keywords='Raspberry PI Downloader',
-    long_description=long_description,
+    long_description=open('README.rst').read(),
     url='https://github.com/sthysel/pibake',
     download_url='https://github.com/sthysel/pibake/archive/v0.2.4.tar.gz',
     license="GPLv2",
