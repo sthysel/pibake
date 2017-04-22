@@ -4,3 +4,5 @@ pytest
 tox
 bumpversion
 twine
+sphinx
+spinks-autobuild
