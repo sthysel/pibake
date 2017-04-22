@@ -1,6 +1,10 @@
 Raspberry pi image baker
 ========================
 
+.. image:: https://readthedocs.org/projects/pibake/badge/?version=latest
+:target: http://pibake.readthedocs.io/en/latest/?badge=latest
+:alt: Documentation Status
+
 This tool fetches the latest Raspberry PI images from the official
 sources and keeps it in a local cache. You can then burn the image to SD
 card from the cached copy.
