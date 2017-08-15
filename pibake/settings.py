@@ -3,7 +3,7 @@ from xdg.BaseDirectory import xdg_cache_home
 
 NAME = 'pibake'
 
-__version__ = '0.2.6'
+__version__ = '0.2.7'
 
 IMAGE_SOURCE_LOOKUP = {
     'NOOBS': os.getenv('PIBAKE_NOOBS_LATEST_URL', 'https://downloads.raspberrypi.org/NOOBS_latest'),
