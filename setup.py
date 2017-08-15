@@ -22,7 +22,8 @@ setup(
         'click',
         'requests',
         'psutil',
-        'pyxdg'
+        'pyxdg',
+        'xdg',
     ],
     entry_points={
         'console_scripts': [
