@@ -1,9 +1,14 @@
 import os
 import sys
+from pathlib import Path
 from pprint import pformat
+from typing import List
 
 import click
+
 from . import settings
+
+image_lookup = {}
 
 
 def get_image_source_list():
@@ -17,8 +22,8 @@ def get_default_image_source():
 def get_filename_from_response(response, verbose=0):
     """
     :param response: The response object from requests
-    :param verbose: Chattiness 
-    :return: 
+    :param verbose: Chattiness
+    :return:
     """
     if verbose >= 2:
         click.echo(pformat(dict(**response.headers)))
@@ -39,7 +44,9 @@ def remove_existing_file(cache_file_name, overwrite):
         if overwrite:
             os.remove(cache_file_name)
         else:
-            click.secho('{} already exists. Use the --override option to re-download'.format(cache_file_name), fg='red')
+            click.secho(
+                f'{cache_file_name} already exists. Use the --override option to re-download',
+                fg='red')
             sys.exit()
 
 
@@ -50,19 +57,20 @@ def get_filesize(response):
         return -1
 
 
-image_lookup = {}
-
-
-def get_images(config):
+def get_images(config) -> List:
     """
     List of images available in cache
-    :param config: 
-    :return: 
+    :param config:
+    :return:
     """
-    for file in os.listdir(config.cache_path):
-        if file.endswith('.zip'):
-            image_lookup[file.split('.')[0]] = os.path.join(config.cache_path, file)
-    return sorted(image_lookup.keys())
+
+    image_folder = Path(config.cache_path)
+    if image_folder.exists():
+        for z in image_folder.glob('*.zip'):
+            image_lookup[z.name] = z
+        return sorted(image_lookup.keys())
+    else:
+        return []
 
 
 def get_image_file(name):
