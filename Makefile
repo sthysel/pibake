@@ -1,7 +1,6 @@
 .PHONY: clean-pyc clean-build test
 
 all: clean sdist wheel
-	
 
 clean: clean-build clean-pyc
 
@@ -10,7 +9,7 @@ clean-build:
 	$(info # Removing build artefacts)
 	rm -fr build/
 	rm -fr dist/
-	rm -fr *.egg-info
+	-rm -fr **/*.egg-info
 
 clean-pyc:
 	$(info # Removing pycies artefacts)
@@ -58,6 +57,10 @@ coverage-html: coverage
 
 patch:
 	bumpversion patch
+minor:
+	bumpversion minor
+major:
+	bumpversion major
 
 git-clean:
 	git clean -f -d
